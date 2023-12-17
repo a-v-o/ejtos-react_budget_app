@@ -1,26 +1,27 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 
 export default function Currency() {
-    const {dispatch} = useContext(AppContext)
-    const [newCurrency, setNewCurrency] = useState('\u00A3 Pound')
+    const {dispatch, currency} = useContext(AppContext)
+    let newCurrency = currency
 
     function changeCurrency(e) {
 
-        setNewCurrency (e.target.value[0])
+        newCurrency = e.target.value
 
         dispatch({
             type:'CHG_CURRENCY',
-            payload: newCurrency
+            payload: newCurrency[0]
         })
     }
 
-    return <div className = 'alert alert-success'>
+    return <div>
         <select name="currency" id="inputGroupSelect03" className='form-select' onChange={changeCurrency}>
-            <option selected>Currency ({newCurrency})</option>
-            <option defaultValue value="Pound">{'\u00A3 Pound'}</option>
-            <option value="Dollar">{'\u0024 Dollar'}</option>
-            <option value="Euro">{'\u20AC Euro'}</option>
-            <option value="Ruppee">{'\u20B9 Ruppee'}</option>
+            <option selected>Currency ({newCurrency} Pound)</option>
+            <option value="Pound">{'£ Pound'}</option>
+            <option value="Dollar">{'$ Dollar'}</option>
+            <option value="Euro">{'€ Euro'}</option>
+            <option value="Ruppee">{'₹ Ruppee'}</option>
         </select>
     </div>
 
